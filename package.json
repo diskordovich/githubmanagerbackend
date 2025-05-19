@@ -16,7 +16,9 @@
     "@nestjs/common": "^11.1.1",
     "@nestjs/config": "^4.0.2",
     "@nestjs/core": "^11.1.1",
+    "@nestjs/jwt": "^11.0.0",
     "@nestjs/platform-express": "^11.1.1",
+    "@prisma/client": "6.8.2",
     "cookie-parser": "^1.4.7",
     "reflect-metadata": "0.2"
   },
@@ -25,6 +27,7 @@
     "@nestjs/schematics": "^11.0.5",
     "@types/cookie-parser": "^1.4.8",
     "@types/node": "^22.15.19",
+    "prisma": "^6.8.2",
     "typescript": "^5"
   }
 }
