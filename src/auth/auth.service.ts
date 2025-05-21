@@ -8,7 +8,7 @@ export class AuthService {
     constructor(private readonly jwtService: JwtService, private readonly userService: UserService) {}
 
     async login(loginDto: LoginDto) {
-        const user = await this.userService.getUserByUsername(loginDto.username)
+        const user = await this.userService.getUserByEmail(loginDto.email)
 
         if (!user) {
             throw new UnauthorizedException('Invalid credentials')
@@ -16,28 +16,19 @@ export class AuthService {
         if (user.password !== loginDto.password) {
             throw new UnauthorizedException('Invalid credentials')
         }
-        const payload = { username: user.username, id: user.id }
+        const payload = { email: user.email, id: user.id }
         return {
-            username: user.username,
+            email: user.email,
             access_token: this.jwtService.sign(payload, {expiresIn: '1h'}),
         }
     }
 
     async register(createUserDto: CreateUserDto) {
         const user = await this.userService.createUser(createUserDto)
-        const payload = { username: user.username, id: user.id }
+        const payload = { email: user.email, id: user.id }
         return {
-            username: user.username,
+            email: user.email,
             access_token: this.jwtService.sign(payload, {expiresIn: '1h'}),
-        }
-    }
-
-    async me(token: string) {
-        try {
-            const decoded = this.jwtService.verify(token)
-            return decoded.username
-        } catch (error) {
-            throw new UnauthorizedException('Invalid token')
         }
     }
 }
