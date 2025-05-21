@@ -9,6 +9,6 @@ import { UserModule } from '../user/user.module';
     signOptions: { expiresIn: '1h' },
   }), UserModule],
   controllers: [AuthController],
-  providers: [AuthService]
+  providers: [AuthService],
 })
 export class AuthModule {}

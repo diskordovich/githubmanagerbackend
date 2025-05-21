@@ -5,8 +5,21 @@ import { PrismaModule } from './prisma/prisma.module';
 import { UserService } from './user/user.service';
 import { UserModule } from './user/user.module';
 import { GithubModule } from './github/github.module';
+import { JwtModule } from '@nestjs/jwt';
+
 @Module({
-  imports: [AuthModule, ConfigModule.forRoot({isGlobal: true}), PrismaModule, UserModule, GithubModule],
+  imports: [
+    AuthModule,
+    ConfigModule.forRoot({isGlobal: true}),
+    PrismaModule,
+    UserModule,
+    GithubModule,
+    JwtModule.register({
+      global: true,
+      secret: process.env.JWT_SECRET,
+      signOptions: { expiresIn: '1h' },
+    }),
+  ],
   providers: [UserService],
 })
 export class AppModule {}
